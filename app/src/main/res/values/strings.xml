@@ -6,6 +6,12 @@
     <string name="number_c">C</string>
     <string name="number_x">X</string>
 
+    <string name="h_number_a">A → %s</string>
+    <string name="h_number_b">B → %s</string>
+    <string name="h_number_c">C → %s</string>
+    <string name="h_number_x">X → %s</string>
+
+
     <string name="buttom_clean">Limpar</string>
     <string name="buttom_calculate">Calcular</string>
     <string name="result">Resultado</string>
