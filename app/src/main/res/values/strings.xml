@@ -15,6 +15,6 @@
     <string name="buttom_clean">Limpar</string>
     <string name="buttom_calculate">Calcular</string>
     <string name="result">Resultado</string>
-    <string name="switch_name">Inversalmente Proporcional</string>
+    <string name="switch_name">Inversamente Proporcional</string>
     <string name="autor">Harrison Siqueira</string>
 </resources>

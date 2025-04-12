@@ -2,10 +2,14 @@ package com.example.regrade3
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.regrade3.databinding.ItemViewBinding
 
-class HistoricoAdapter(private val itemList: List<HistoricoItem>) : RecyclerView.Adapter<HistoricoAdapter.ViewHolder>() {
+class HistoricoAdapter : RecyclerView.Adapter<HistoricoAdapter.ViewHolder>() {
+
+    private val asyncListDiffer: AsyncListDiffer<HistoricoItem> = AsyncListDiffer(this, DiffCallback)
 
     class ViewHolder(
         private val binding: ItemViewBinding
@@ -24,10 +28,24 @@ class HistoricoAdapter(private val itemList: List<HistoricoItem>) : RecyclerView
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = itemList.size
+    override fun getItemCount(): Int = asyncListDiffer.currentList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = itemList[position]
-        holder.bind(item)
+        //val item = itemList[position]
+        holder.bind(asyncListDiffer.currentList[position])
+    }
+
+    fun submitList(newList: List<HistoricoItem>){
+        asyncListDiffer.submitList(newList)
+    }
+
+    object DiffCallback : DiffUtil.ItemCallback<HistoricoItem>() {
+        override fun areItemsTheSame(oldItem: HistoricoItem, newItem: HistoricoItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: HistoricoItem, newItem: HistoricoItem): Boolean {
+            return oldItem == newItem
+        }
     }
 }
