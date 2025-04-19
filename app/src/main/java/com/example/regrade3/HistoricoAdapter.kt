@@ -36,7 +36,9 @@ class HistoricoAdapter : RecyclerView.Adapter<HistoricoAdapter.ViewHolder>() {
     }
 
     fun submitList(newList: List<HistoricoItem>){
+        val oldSize = asyncListDiffer.currentList.size
         asyncListDiffer.submitList(newList)
+        notifyItemRangeInserted(oldSize, newList.size - oldSize)
     }
 
     object DiffCallback : DiffUtil.ItemCallback<HistoricoItem>() {

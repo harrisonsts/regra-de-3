@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.regrade3.databinding.ActivityMainBinding
 
@@ -21,9 +22,10 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.bottomCalcular.setOnClickListener { calcular(binding.switch1.isChecked) }
+        binding.buttonCalcular.setOnClickListener { calcular(binding.switch1.isChecked) }
         binding.buttonLimpar.setOnClickListener { limpar() }
         binding.buttonLimparHistorico.setOnClickListener { limparListaHistorico() }
+        binding.recyclerView.itemAnimator = DefaultItemAnimator()
 
         adapter = HistoricoAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
@@ -43,6 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         historicoList.add(0, novoItem)
         adapter.submitList(historicoList.toList())
+        binding.recyclerView.scrollToPosition(0)
     }
 
 
