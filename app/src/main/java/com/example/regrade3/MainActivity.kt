@@ -34,32 +34,7 @@ class MainActivity : AppCompatActivity() {
         binding.historicoRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.historicoRecyclerView.adapter = adapter
 
-        addingDividerDecoration()
-
         adapter.submitList(historicoList)
-    }
-
-    private fun addingDividerDecoration() {
-        // Adding Line between items with MaterialDividerItemDecoration
-        val divider = MaterialDividerItemDecoration(this, LinearLayoutManager.VERTICAL)
-
-        // Removing the line at the end of the list
-        divider.isLastItemDecorated = false
-
-        val resources = this.resources
-
-        // Adding start spacing
-        divider.dividerInsetStart = resources.getDimensionPixelSize(R.dimen.horizontal_margin)
-
-        // Defining size of the line
-        divider.dividerThickness = resources.getDimensionPixelSize(R.dimen.divider_height)
-        divider.dividerColor = ContextCompat.getColor(this, R.color.primary_200)
-
-        binding.historicoRecyclerView.addItemDecoration(divider)
-    }
-
-    private fun addingDividerSpace() {
-        binding.historicoRecyclerView.addItemDecoration(HistoricoListItemDecoration(this))
     }
 
     private fun salvarHistorico(numberA: String, numberB: String, numberC: String, numberX: String, id: String){
