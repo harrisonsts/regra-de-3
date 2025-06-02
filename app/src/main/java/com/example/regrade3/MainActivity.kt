@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -17,6 +18,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val historicoList = mutableListOf<HistoricoItem>()
     private lateinit var adapter: HistoricoAdapter
+
+    private val viewModel: HistoricoListViewModel by viewModels {
+        HistoricoListViewModel.Factory(Historico)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +39,15 @@ class MainActivity : AppCompatActivity() {
         binding.historicoRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.historicoRecyclerView.adapter = adapter
 
-        adapter.submitList(historicoList)
+        //adapter.submitList(historicoList)
+
+        viewModel.stateOnceAndStream().observe(this) { state ->
+            bindUiSate(state)
+        }
+    }
+
+    private fun bindUiSate(state: HistoricoListUiState){
+        adapter.submitList(state.historicoItemList)
     }
 
     private fun salvarHistorico(numberA: String, numberB: String, numberC: String, numberX: String, id: String){
